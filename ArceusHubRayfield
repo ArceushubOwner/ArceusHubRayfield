@@ -1,0 +1,105 @@
+--// Arceus Hub Rayfield
+
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "Arceus Hub",
+   LoadingTitle = "Arceus Hub",
+   LoadingSubtitle = "by você",
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = "ArceusHub",
+      FileName = "Config"
+   },
+   Discord = {
+      Enabled = false,
+      Invite = "",
+      RememberJoins = true
+   },
+   KeySystem = false
+})
+
+-- Aba Main com decal
+local Main = Window:CreateTab("Main", 99700503530094)
+
+-- Infinite Yield
+Main:CreateButton({
+   Name = "Infinite Yield (IY)",
+   Callback = function()
+      loadstring(game:HttpGet("https://rawscripts.net/raw/Infinite-Yield_500"))()
+   end
+})
+
+-- ESP Toggle
+local ESPEnabled = false
+Main:CreateToggle({
+   Name = "ESP",
+   CurrentValue = false,
+   Flag = "ESP_Toggle",
+   Callback = function(Value)
+      ESPEnabled = Value
+      if ESPEnabled then
+         loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-ESP-6624"))()
+      else
+         -- se tiver um disable de ESP específico pode por aqui
+         game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("ESP"):Destroy()
+      end
+   end
+})
+
+-- Infinite Jump Toggle
+local InfJump = false
+Main:CreateToggle({
+   Name = "Infinite Jump",
+   CurrentValue = false,
+   Flag = "InfJump_Toggle",
+   Callback = function(Value)
+      InfJump = Value
+      local Player = game:GetService("Players").LocalPlayer
+      local UserInputService = game:GetService("UserInputService")
+      UserInputService.JumpRequest:Connect(function()
+         if InfJump then
+            Player.Character:FindFirstChildOfClass("Humanoid"):ChangeState("Jumping")
+         end
+      end)
+   end
+})
+
+-- Godmode
+Main:CreateButton({
+   Name = "Godmode",
+   Callback = function()
+      loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-God-Mode_5496"))()
+   end
+})
+
+-- Fly
+Main:CreateButton({
+   Name = "Fly",
+   Callback = function()
+      loadstring(game:HttpGet("https://rawscripts.net/raw/Universal-Script-fly-v3-44404"))()
+   end
+})
+
+-- System Broken
+Main:CreateButton({
+   Name = "System Broken",
+   Callback = function()
+      loadstring(game:HttpGet("https://rawscripts.net/raw/Ragdoll-Engine-BEST-SCRIPT-WORKING-SystemBroken-7544"))()
+   end
+})
+
+-- Minimizar (vira bolinha com decal)
+local Minimized = false
+Main:CreateButton({
+   Name = "Minimizar",
+   Callback = function()
+      if not Minimized then
+         Window:Minimize()
+         Minimized = true
+      else
+         Window:Toggle()
+         Minimized = false
+      end
+   end
+})
